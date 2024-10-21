@@ -80,16 +80,4 @@ class pax (
   -> file { '/opt/jupyterhub/etc/jupyter/nbconfig/notebook.d/jupyter_nbextensions_configurator.json':
     ensure => absent,
   }
-  -> file { '/opt/jupyterhub/etc/jupyter/nbconfig/tree.d/jupyterlmod_nbextension.json':
-    ensure => absent,
-  }
-  -> file { '/opt/jupyterhub/etc/jupyter/nbconfig/tree.d/jupyterlmod_nbextension.json':
-    ensure => absent,
-  }
-  -> file { '/opt/jupyterhub/etc/jupyter/jupyter_server_config.d/jupyterlmod_jupyterserverextension.json':
-    ensure => absent,
-  }
-  -> file { '/opt/jupyterhub/etc/jupyter/jupyter_notebook_config.d/jupyterlmod_serverextension.json':
-    ensure => absent,
-  }
 }
