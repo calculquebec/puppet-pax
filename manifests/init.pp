@@ -15,6 +15,7 @@ class pax (
     path        => ['/opt/uv/bin'],
     require     => Exec['node_pip_install'],
     environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    creates     => '/opt/jupyterhub/lib/python3.12/site-packages/jupyter_contrib_nbextensions',
   }
   -> file { "${config_path}/custom.js":
     ensure => link,
