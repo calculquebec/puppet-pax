@@ -1,0 +1,14 @@
+{
+    "name": "puppet-pax",
+    "version": "1.0.0",
+    "author": "Félix-Antoine Fortin",
+    "summary": "Install, configure, and manage Jupyter Notebook for pax",
+    "license": "MIT",
+    "source": "https://github.com/calculquebec/puppet-pax",
+    "project_page": "https://github.com/calculquebec/puppet-pax",
+    "issues_url": "https://github.com/calculquebec/puppet-pax/issues",
+    "dependencies": [ 
+        { "name":"puppetlabs/stdlib", "version_requirement": ">= 5.2.0"  },
+        { "name":"puppetlabs/vcsrepo", "version_requirement": ">= 6.1.0"  }
+    ]
+}
