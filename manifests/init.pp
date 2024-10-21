@@ -1,7 +1,7 @@
 class pax (
   String $git_repo,
   String $git_token,
-  String $config_path = '/opt/jupyterhub/etc/jupyter'
+  String $config_path = '/opt/jupyterhub/lib/python3.12/site-packages/nbclassic/static/custom'
 ) {
   file { '/opt/pax':
     ensure => directory,
