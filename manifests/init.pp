@@ -6,7 +6,7 @@ class pax (
   file { '/opt/pax':
     ensure => directory,
   }
-  -> vcsrepo { '/opt/pax/jupyter-custom':
+  -> vcsrepo { '/opt/pax/jupyter-custom':
     ensure   => present,
     source   => "https://${git_token}@${git_repo}",
     provider => 'git',
@@ -16,6 +16,14 @@ class pax (
     require     => Exec['node_pip_install'],
     environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
     creates     => '/opt/jupyterhub/lib/python3.12/site-packages/jupyter_contrib_nbextensions',
+  }
+  -> exec { 'jupyter contrib nbextension install --sys-prefix':
+    path    => ["${jupyterhub::node::prefix}/bin"],
+    require => Exec['uv pip install jupyter_contrib_nbextensions'],
+    creates => [
+      '/opt/jupyterhub/share/jupyter/nbextensions/nbTranslate/main.js',
+      '/opt/jupyterhub/share/jupyter/nbextensions/codefolding/main.js',
+    ],
   }
   -> file { "${config_path}/custom.js":
     ensure => link,
