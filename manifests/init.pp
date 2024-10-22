@@ -25,6 +25,19 @@ class pax (
       '/opt/jupyterhub/share/jupyter/nbextensions/codefolding/main.js',
     ],
   }
+  -> exec { 'uv pip install ipywidgets':
+    path        => ['/opt/uv/bin'],
+    require     => Exec['node_pip_install'],
+    environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    creates     => '/opt/jupyterhub/lib/python3.12/site-packages/ipywidgets',
+    notify      => Exec['sed_out_ipy_metadata'],
+  }
+  -> exec { 'uv pip install widgetsnbextension':
+    path        => ['/opt/uv/bin'],
+    require     => Exec['node_pip_install'],
+    environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    creates     => '/opt/jupyterhub/lib/python3.12/site-packages/widgetsnbextension',
+  }
   -> file { "${config_path}/custom.js":
     ensure => link,
     target => '/opt/pax/jupyter-custom/custom.js',
