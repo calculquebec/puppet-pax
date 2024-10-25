@@ -30,7 +30,6 @@ class pax (
     require     => Exec['node_pip_install'],
     environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
     creates     => '/opt/jupyterhub/lib/python3.12/site-packages/ipywidgets',
-    notify      => Exec['sed_out_ipy_metadata'],
   }
   -> exec { 'uv pip install widgetsnbextension':
     path        => ['/opt/uv/bin'],
