@@ -3,6 +3,7 @@ class pax (
   String $git_token,
   String $config_path = '/opt/jupyterhub/lib/python3.12/site-packages/nbclassic/static/custom'
 ) {
+  $prefix = lookup('jupyterhub::node::prefix', undef, undef, '/opt/jupyterhub')
   file { '/opt/pax':
     ensure => directory,
   }
@@ -14,11 +15,11 @@ class pax (
   -> exec { 'uv pip install jupyter_contrib_nbextensions':
     path        => ['/opt/uv/bin'],
     require     => Exec['node_pip_install'],
-    environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    environment => ["VIRTUAL_ENV=${prefix}"],
     creates     => '/opt/jupyterhub/lib/python3.12/site-packages/jupyter_contrib_nbextensions',
   }
   -> exec { 'jupyter contrib nbextension install --sys-prefix':
-    path    => ["${jupyterhub::node::prefix}/bin"],
+    path    => ["${prefix}/bin"],
     require => Exec['uv pip install jupyter_contrib_nbextensions'],
     creates => [
       '/opt/jupyterhub/share/jupyter/nbextensions/nbTranslate/main.js',
@@ -28,13 +29,13 @@ class pax (
   -> exec { 'uv pip install ipywidgets':
     path        => ['/opt/uv/bin'],
     require     => Exec['node_pip_install'],
-    environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    environment => ["VIRTUAL_ENV=${prefix}"],
     creates     => '/opt/jupyterhub/lib/python3.12/site-packages/ipywidgets',
   }
   -> exec { 'uv pip install widgetsnbextension':
     path        => ['/opt/uv/bin'],
     require     => Exec['node_pip_install'],
-    environment => ["VIRTUAL_ENV=${jupyterhub::node::prefix}"],
+    environment => ["VIRTUAL_ENV=${prefix}"],
     creates     => '/opt/jupyterhub/lib/python3.12/site-packages/widgetsnbextension',
   }
   -> file { "${config_path}/custom.js":
